@@ -48,8 +48,9 @@ class Function:
             return Function(other.coefficient * self.coefficient, self.degree + other.degree)
 
     def __truediv__(self, other):
-        if isinstance(other, Function):
+        if isinstance(other, Function) and other.coefficient != 0:
             return Function(self.coefficient / other.coefficient, self.degree - other.degree)
+        raise Exception
 
 
 class Add:

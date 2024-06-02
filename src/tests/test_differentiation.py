@@ -1,6 +1,7 @@
 import unittest
 from src.module.differentiation import initialize_expression
 
+
 class TestDifferentiation(unittest.TestCase):
     def test_simple_differential(self):
         expression = initialize_expression("x^2 + 7x^6")
@@ -11,6 +12,7 @@ class TestDifferentiation(unittest.TestCase):
         expression = initialize_expression("-5x^3 * x^2")
         differential_expression = expression.differential()
         self.assertEqual(str(initialize_expression(differential_expression)), '-25x^4')
+
     def test_differentiation_with_zero(self):
         expression = initialize_expression("x^2 - x + 4")
         differential_expression = expression.differential()
@@ -30,6 +32,7 @@ class TestDifferentiation(unittest.TestCase):
         expression = initialize_expression("(x^2+5)/(x^3-x) * 5x - 7 + 6x^2 - 1/x")
         differential_expression = expression.differential()
         self.assertEqual(str(initialize_expression(differential_expression)), '(-60x^3)/(x^6-2x^4+x^2)+12x+1/(x^2)')
+
 
 if __name__ == '__main__':
     unittest.main()

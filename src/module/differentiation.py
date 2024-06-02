@@ -40,6 +40,7 @@ def parse_functions(expression: str) -> (List[Function], str):
     return functions, expression
 
 
+
 def find_unary_minus(expression: str, functions: List[Function]) -> (List[Function], str):
     new_expression = ""
     count_operators = 0
@@ -53,7 +54,7 @@ def find_unary_minus(expression: str, functions: List[Function]) -> (List[Functi
             elif count_functions < count_operators and char == '+':
                 count_operators -= 1
             elif count_functions < count_operators:
-                print("incorrect expression")
+                raise Exception
             else:
                 new_expression += char
         else:
@@ -89,7 +90,8 @@ def infix_to_postfix(expression) -> str:
 
 
 def split_expression(expression: str, functions: [Function]) -> Add | Sub | Mult | Div:
-    count = len(functions)
+    start_count = len(functions)
+    count = start_count
     while len(expression) != 0:
         if len(re.findall("f\\d+f\\d+[+\\-*\\/]", expression)) != 0:
             pattern = re.findall("f\\d+f\\d+[+\\-*\\/]", expression)[0]
@@ -110,4 +112,7 @@ def split_expression(expression: str, functions: [Function]) -> Add | Sub | Mult
                     functions.append(Div(left, right))
         expression = expression.replace(pattern, "f" + str(count))
         count += 1
-    return functions[-1]
+    if start_count < len(functions) or count == 1:
+        return functions[-1]
+    else:
+        raise Exception
